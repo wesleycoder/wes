@@ -1,8 +1,14 @@
 {
   "name": "wes",
   "private": true,
+  "scripts": {
+    "pkg": "manypkg run"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@manypkg/cli": "^0.21.3"
+  }
 }
