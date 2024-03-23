@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content'
 import FormattedDate from '../../components/FormattedDate.astro'
 import BackgroundGradient from '../../components/BackgroundGradient.astro'
 
-const posts = (await getCollection('blog')).sort((a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf())
+const posts = (await getCollection('draft')).sort((a, b) => a.data.createdAt.valueOf() - b.data.createdAt.valueOf())
 ---
 
 <!doctype html>
@@ -24,11 +24,11 @@ const posts = (await getCollection('blog')).sort((a, b) => a.data.publishedAt.va
           {
             posts.map((post) => (
               <li>
-                <a href={`/blog/${post.slug}/`}>
+                <a href={`/draft/${post.slug}/`}>
                   <img src={post.data.heroImage} alt={post.data.title} class="w-full object-cover" />
                   <h4>{post.data.title}</h4>
                   <p>
-                    <FormattedDate date={post.data.publishedAt} />
+                    <FormattedDate date={post.data.createdAt} />
                   </p>
                 </a>
               </li>
