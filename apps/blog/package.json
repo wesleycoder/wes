@@ -2,6 +2,7 @@
   "name": "@wes/blog",
   "type": "module",
   "version": "0.0.1",
+  "license": "FSL-1.1-MIT",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
