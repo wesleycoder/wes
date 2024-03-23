@@ -2,5 +2,16 @@
   "singleQuote": true,
   "trailingComma": "es5",
   "semi": false,
-  "printWidth": 120
+  "printWidth": 120,
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }
