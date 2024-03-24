@@ -4,15 +4,13 @@ import { SITE_TITLE } from '../consts'
 import SocialLinks from './SocialLinks.astro'
 ---
 
-<header class="bg-white/10 backdrop-blur-md">
-  <nav class="container mx-auto flex justify-between">
+<header class="sticky top-0 bg-black/50 backdrop-blur-lg">
+  <nav class="container mx-auto flex w-full items-center justify-between py-2">
     <div class="flex gap-2">
       <HeaderLink href="/">{SITE_TITLE}</HeaderLink>
       <HeaderLink href="/blog">Posts</HeaderLink>
       <HeaderLink href="/draft">Drafts</HeaderLink>
     </div>
-    <div class="flex">
-      <SocialLinks />
-    </div>
+    <SocialLinks />
   </nav>
 </header>
