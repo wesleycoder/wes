@@ -6,8 +6,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts'
 import { getCollection } from 'astro:content'
 import FormattedDate from '../../components/FormattedDate.astro'
 import BackgroundGradient from '../../components/BackgroundGradient.astro'
+import { Image } from 'astro:assets'
 
-const posts = (await getCollection('blog')).sort((a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf())
+const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
 ---
 
 <!doctype html>
@@ -19,22 +20,20 @@ const posts = (await getCollection('blog')).sort((a, b) => a.data.publishedAt.va
     <Header />
     <BackgroundGradient />
     <main class="container mx-auto pt-12">
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/blog/${post.slug}/`}>
-                  <img src={post.data.heroImage} alt={post.data.title} class="w-full object-cover" />
-                  <h4>{post.data.title}</h4>
-                  <p>
-                    <FormattedDate date={post.data.publishedAt} />
-                  </p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+      <section class="columns-md gap-8">
+        {
+          posts.map((post) => (
+            <div class="w-full break-inside-avoid pb-8">
+              <a class="flex flex-col" href={`/blog/${post.slug}/`}>
+                {post.data.heroImage && <Image src={post.data.heroImage} alt={post.data.title} />}
+                <h4>{post.data.title}</h4>
+                <p>
+                  <FormattedDate date={post.data.publishedAt} />
+                </p>
+              </a>
+            </div>
+          ))
+        }
       </section>
     </main>
     <Footer />

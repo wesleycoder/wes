@@ -1,12 +1,13 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, z, type SchemaContext } from 'astro:content'
 
-const postSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date().optional(),
-  heroImage: z.string().optional(),
-})
+const postSchema = ({ image }: SchemaContext) =>
+  z.object({
+    title: z.string(),
+    description: z.string(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+    heroImage: image().optional(),
+  })
 
 const draft = defineCollection({
   type: 'content',
@@ -15,9 +16,10 @@ const draft = defineCollection({
 
 const blog = defineCollection({
   type: 'content',
-  schema: postSchema.extend({
-    publishedAt: z.coerce.date(),
-  }),
+  schema: (ctx) =>
+    postSchema(ctx).extend({
+      publishedAt: z.coerce.date(),
+    }),
 })
 
 export const collections = { blog, draft }
