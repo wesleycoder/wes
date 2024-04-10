@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content'
-import FormattedDate from '../../components/FormattedDate.astro'
+import FormattedDate from '../../../components/FormattedDate.astro'
 import { Image } from 'astro:assets'
-import Default from '../../layouts/Default.astro'
+import Default from '../../../layouts/Default.astro'
 
 const locale = Astro.currentLocale ?? Astro.preferredLocale ?? 'en'
 const posts = (await getCollection('blog'))
@@ -26,7 +26,7 @@ const posts = (await getCollection('blog'))
               )}
               <h4>{post.data.title}</h4>
               <p>
-                Last Edit: <FormattedDate date={post.data.updatedAt} />
+                Última edição: <FormattedDate date={post.data.updatedAt} />
               </p>
             </a>
           </div>

@@ -25,7 +25,12 @@ if ('publishedAt' in Astro.props) {
     <BackgroundGradient />
     <main class="container mx-auto pt-12">
       <article>
-        {heroImage && <img src={heroImage.src} alt={title} />}
+        {
+          heroImage && (
+            <img src={heroImage.src} alt={title} transition:name={`${publishedAt ? 'blog' : 'draft'}-image-${title}`} />
+          )
+        }
+        <h1>{title}</h1>
         <div>
           {publishedAt ? <FormattedDate date={publishedAt} /> : 'Draft'}
           {
@@ -36,7 +41,6 @@ if ('publishedAt' in Astro.props) {
             )
           }
         </div>
-        <h1>{title}</h1>
         <hr />
         <slot />
       </article>

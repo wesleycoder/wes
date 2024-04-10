@@ -5,11 +5,17 @@ import SocialLinks from './SocialLinks.astro'
 ---
 
 <header class="sticky top-0 bg-black/50 backdrop-blur-lg">
-  <nav class="container mx-auto flex w-full items-center justify-between py-2">
-    <div class="flex gap-2">
-      <HeaderLink href="/">{SITE_TITLE}</HeaderLink>
-      <HeaderLink href="/blog">Posts</HeaderLink>
-      <HeaderLink href="/draft">Drafts</HeaderLink>
+  <nav class="container mx-auto flex w-full items-center justify-between px-2 py-2">
+    <div class="flex gap-4">
+      <HeaderLink href="/" class="font-drama" aria-label="Home">
+        <span class="sr-only">Go to Home</span>
+        {SITE_TITLE}
+      </HeaderLink>
+      <HeaderLink href="/blog" aria-label="Posts (WIP)">
+        <span class="sr-only">Work in progress</span>
+        🚧 Posts
+      </HeaderLink>
+      <!-- <HeaderLink href="/draft">Drafts</HeaderLink> -->
     </div>
     <SocialLinks />
   </nav>

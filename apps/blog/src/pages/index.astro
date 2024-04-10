@@ -1,22 +1,17 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-import BackgroundGradient from '../components/BackgroundGradient.astro'
+import Soon from '../components/icons/Soon.astro'
+import Default from '../layouts/Default.astro'
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body class="flex flex-col bg-black text-white">
-    <Header />
-    <BackgroundGradient />
-    <main class="container mx-auto pt-12">
-      <h1>Home page content</h1>
-    </main>
-    <Footer />
-  </body>
-</html>
+<Default>
+  <main class="container mx-auto flex flex-col items-center gap-16">
+    <h1 class="font-drama text-9xl">Wés <br />Guima</h1>
+    <ul>
+      <li>Software Engineer 👨🏽‍💻</li>
+      <li>Brazilian 🇧🇷</li>
+      <li>In love with the web 🌐</li>
+      <li>Currently in São Paulo 📍</li>
+      <li>Wishing to move to Berlin 🇩🇪 <Soon /></li>
+    </ul>
+  </main>
+</Default>

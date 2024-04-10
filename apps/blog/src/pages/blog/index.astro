@@ -1,41 +1,37 @@
 ---
-import BaseHead from '../../components/BaseHead.astro'
-import Header from '../../components/Header.astro'
-import Footer from '../../components/Footer.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts'
 import { getCollection } from 'astro:content'
 import FormattedDate from '../../components/FormattedDate.astro'
-import BackgroundGradient from '../../components/BackgroundGradient.astro'
 import { Image } from 'astro:assets'
+import Default from '../../layouts/Default.astro'
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+const locale = Astro.currentLocale ?? Astro.preferredLocale ?? 'en'
+const posts = (await getCollection('blog'))
+  .filter((b) => b.id.startsWith(locale))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body class="flex flex-col bg-black text-white">
-    <Header />
-    <BackgroundGradient />
-    <main class="container mx-auto pt-12">
-      <section class="columns-md gap-8">
-        {
-          posts.map((post) => (
-            <div class="w-full break-inside-avoid pb-8">
-              <a class="flex flex-col" href={`/blog/${post.slug}/`}>
-                {post.data.heroImage && <Image src={post.data.heroImage} alt={post.data.title} />}
-                <h4>{post.data.title}</h4>
-                <p>
-                  <FormattedDate date={post.data.publishedAt} />
-                </p>
-              </a>
-            </div>
-          ))
-        }
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+<Default>
+  <main class="container mx-auto pt-12">
+    <section class="columns-md gap-8">
+      {
+        posts.map((post) => (
+          <div class="w-full break-inside-avoid pb-8">
+            <a class="flex flex-col" href={`/blog/${post.slug}/`}>
+              {post.data.heroImage && (
+                <Image
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  transition:name={`blog-image-${post.data.title}`}
+                />
+              )}
+              <h4>{post.data.title}</h4>
+              <p>
+                <FormattedDate date={post.data.publishedAt} />
+              </p>
+            </a>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</Default>
