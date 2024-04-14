@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel/serverless'
 import { defineConfig } from 'astro/config'
+import process from 'node:process'
 
 import compressor from 'astro-compressor'
 
