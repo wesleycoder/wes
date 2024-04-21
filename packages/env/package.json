@@ -4,5 +4,8 @@
   "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

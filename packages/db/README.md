@@ -1,4 +1,4 @@
-# @wes/tmdb
+# @wes/db
 
 To install dependencies:
 
