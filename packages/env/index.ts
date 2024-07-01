@@ -1,13 +1,15 @@
-import { z } from 'zod'
 import { config } from 'dotenv'
+import { z } from 'zod'
 
 const workspace = process.cwd().split('/').slice(0, -2).join('/')
-const env = config({
+const { NODE_ENV = 'development' } = process.env
+
+const dotenv = config({
   path: [
     `${workspace}/.env`,
     `${workspace}/.env.local`,
-    `${workspace}/.env.${process.env.NODE_ENV}`,
-    `${workspace}/.env.${process.env.NODE_ENV}.local`,
+    `${workspace}/.env.${NODE_ENV}`,
+    `${workspace}/.env.${NODE_ENV}.local`,
   ],
 })
 
@@ -22,9 +24,10 @@ const envSchema = z.object({
 
 export type Env = z.infer<typeof envSchema>
 
-declare module 'bun' {
-  type customEnv = z.infer<typeof envSchema>
-  interface Env extends customEnv {}
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends Env {}
+  }
 }
 
-export default envSchema.parse(env.parsed)
+export default envSchema.parse({ ...process.env, ...dotenv.parsed })

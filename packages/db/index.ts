@@ -1,18 +1,20 @@
 import { createClient } from '@libsql/client'
-import '@wes/env'
+import env from '@wes/env'
 import { drizzle } from 'drizzle-orm/libsql'
-import process from 'node:process'
 import { importTable } from './schema/import'
+import { linkTable } from './schema/link'
 
 const client = createClient({
-  url: process.env.TURSO_CONNECTION_URL!,
-  authToken: process.env.TURSO_AUTH_TOKEN!,
+  url: env.DB_URL,
+  authToken: env.DB_AUTH_TOKEN,
 })
 
 export const db = drizzle(client, {
   schema: {
     importTable,
+    linkTable,
   },
 })
 
 export * from './schema/import'
+export * from './schema/link'

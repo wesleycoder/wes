@@ -9,7 +9,6 @@ import process from 'node:process'
 import compressor from 'astro-compressor'
 
 const workspace = process.cwd().split('/').slice(0, -2).join('/')
-console.log('workspace:', workspace)
 
 const adapter = process.argv.includes('--node') ? node({ mode: 'standalone' }) : vercel()
 

@@ -5,6 +5,7 @@ export default {
   schema: './index.ts',
   out: './migrations',
   driver: 'turso',
+  dialect: 'sqlite',
   dbCredentials: {
     url: env.DB_URL,
     authToken: env.DB_AUTH_TOKEN,

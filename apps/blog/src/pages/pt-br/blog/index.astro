@@ -1,13 +1,13 @@
 ---
-import { getCollection } from 'astro:content'
-import FormattedDate from '../../../components/FormattedDate.astro'
-import { Image } from 'astro:assets'
-import Default from '../../../layouts/Default.astro'
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import Default from "../../../layouts/Default.astro";
 
-const locale = Astro.currentLocale ?? Astro.preferredLocale ?? 'en'
-const posts = (await getCollection('blog'))
+const locale = Astro.currentLocale ?? Astro.preferredLocale ?? "en";
+const posts = (await getCollection("blog"))
   .filter((b) => b.id.startsWith(locale))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
 <Default>
@@ -21,7 +21,7 @@ const posts = (await getCollection('blog'))
                 <Image
                   src={post.data.heroImage}
                   alt={post.data.title}
-                  transition:name={`blog-image-${post.data.title}`}
+                  transition:name={`blog-image-${post.slug}`}
                 />
               )}
               <h4>{post.data.title}</h4>
