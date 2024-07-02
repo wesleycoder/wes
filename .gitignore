@@ -173,8 +173,9 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
-# jujutsu
-.jj
-
 # sqlite database files
 *.db
+*.db-*
+
+# turbo
+.turbo

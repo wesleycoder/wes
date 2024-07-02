@@ -1,8 +1,29 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "DB_URL",
+    "DB_AUTH_TOKEN",
+    "NODE_ENV",
+    "TMDB_API_KEY",
+    "TMDB_ACCESS_TOKEN",
+    "TMDB_API_URL",
+    "TMDB_FILES_URL"
+  ],
   "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        ".astro/**"
+      ]
+    },
     "db": {
       "cache": false,
+      "interactive": true,
       "persistent": true
     },
     "dev": {

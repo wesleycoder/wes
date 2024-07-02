@@ -1,20 +1,23 @@
-import { config } from 'dotenv'
+import { config } from '@dotenvx/dotenvx'
 import { z } from 'zod'
 
 const workspace = process.cwd().split('/').slice(0, -2).join('/')
 const { NODE_ENV = 'development' } = process.env
 
+const envFiles = [`${workspace}/.env.${NODE_ENV}`, `${workspace}/.env.${NODE_ENV}.local`]
+if (!NODE_ENV || NODE_ENV === 'development') envFiles.push(`${workspace}/.env`, `${workspace}/.env.local`)
+
 const dotenv = config({
-  path: [
-    `${workspace}/.env`,
-    `${workspace}/.env.local`,
-    `${workspace}/.env.${NODE_ENV}`,
-    `${workspace}/.env.${NODE_ENV}.local`,
-  ],
+  path: envFiles,
+  convention: 'nextjs',
 })
+
+console.log('>>>>> process.env:', process.env)
+console.log('>>>>> dotenv:', dotenv.parsed)
 
 const envSchema = z.object({
   DB_URL: z.string(),
+  DB_FILE_URL: z.string().optional(),
   DB_AUTH_TOKEN: z.string().optional(),
   TMDB_API_KEY: z.string(),
   TMDB_ACCESS_TOKEN: z.string(),

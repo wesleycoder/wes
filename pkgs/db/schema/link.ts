@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import type { InferNew } from '../utils/infer.ts'
 import { date, nanoid } from '../utils/sqlite-types.ts'
@@ -7,13 +8,11 @@ export const linkTable = sqliteTable('link', {
     .primaryKey()
     .$default(() => nanoid(10)),
   url: text('url').notNull().unique(),
-  views: integer('views').default(0),
+  views: integer('views').notNull().default(sql`(0)`),
   createdAt: date('created_at')
     .notNull()
     .$default(() => new Date()),
-  updatedAt: date('updated_at')
-    .$default(() => new Date())
-    .$onUpdate(() => new Date()),
+  updatedAt: date('updated_at').$onUpdate(() => new Date()),
 })
 
 export type Link = typeof linkTable.$inferSelect

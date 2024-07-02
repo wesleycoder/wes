@@ -27,6 +27,8 @@ export const GET: APIRoute = async ({ params, redirect }) => {
 }
 
 export const getStaticPaths = async () => {
+  console.log('===getStaticPaths===')
   const links = await db.query.linkTable.findMany()
+  console.log('links:', links)
   return links.map(({ id }) => ({ params: { linkId: id } }))
 }

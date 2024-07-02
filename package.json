@@ -3,11 +3,11 @@
   "license": "FSL-1.1-MIT",
   "private": true,
   "scripts": {
-    "turbo": "dotenvx run -f .env.development -- turbo"
+    "turbo": "turbo"
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "pkgs/*"
   ],
   "packageManager": "bun@1.1.17",
   "devDependencies": {
