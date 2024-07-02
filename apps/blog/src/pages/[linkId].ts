@@ -9,13 +9,9 @@ export const GET: APIRoute = async ({ params, redirect }) => {
   if (!id) return new Response(null, { status: 404 })
 
   const links = await db.select().from(linkTable).where(eq(linkTable.id, id))
-  if (!links.length) return new Response(null, { status: 404 })
 
-  if (!links[0]) {
-    return new Response(null, {
-      status: 404,
-      statusText: 'Not found',
-    })
+  if (!links.length || !links[0]) {
+    return new Response(null, { status: 404, statusText: 'Link not found' })
   }
 
   await db
@@ -23,12 +19,13 @@ export const GET: APIRoute = async ({ params, redirect }) => {
     .set({ views: sql`${linkTable.views} + 1` })
     .where(eq(linkTable.id, links[0].id))
 
-  return redirect(links[0].url, 302)
+  const res = redirect(links[0].url, 302)
+  res.headers.set('Content-Type', 'text/html')
+  res.headers.set('Content-Disposition', 'inline')
+  return res
 }
 
 export const getStaticPaths = async () => {
-  console.log('===getStaticPaths===')
   const links = await db.query.linkTable.findMany()
-  console.log('links:', links)
   return links.map(({ id }) => ({ params: { linkId: id } }))
 }

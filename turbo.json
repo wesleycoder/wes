@@ -2,13 +2,15 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "globalEnv": [
+    "APP_URL",
     "DB_URL",
     "DB_AUTH_TOKEN",
     "NODE_ENV",
     "TMDB_API_KEY",
     "TMDB_ACCESS_TOKEN",
     "TMDB_API_URL",
-    "TMDB_FILES_URL"
+    "TMDB_FILES_URL",
+    "VERCEL_URL"
   ],
   "tasks": {
     "build": {

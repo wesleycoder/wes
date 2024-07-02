@@ -12,10 +12,8 @@ const dotenv = config({
   convention: 'nextjs',
 })
 
-console.log('>>>>> process.env:', process.env)
-console.log('>>>>> dotenv:', dotenv.parsed)
-
 const envSchema = z.object({
+  APP_URL: z.string().optional(),
   DB_URL: z.string(),
   DB_FILE_URL: z.string().optional(),
   DB_AUTH_TOKEN: z.string().optional(),
@@ -23,6 +21,7 @@ const envSchema = z.object({
   TMDB_ACCESS_TOKEN: z.string(),
   TMDB_API_URL: z.string(),
   TMDB_FILES_URL: z.string(),
+  VERCEL_URL: z.string().optional().default('http://localhost:3000'),
 })
 
 export type Env = z.infer<typeof envSchema>
