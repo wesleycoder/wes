@@ -1,6 +1,6 @@
 import '@total-typescript/ts-reset'
-import env from '@wes/env'
 import { Client as QStashClient } from '@upstash/qstash'
+import env from '@wes/env'
 import { formatDate } from 'date-fns/format'
 import { gunzipSync } from 'node:zlib'
 import { z } from 'zod'
@@ -54,7 +54,7 @@ export const updateImports = async (type: ImportType) => {
       body: JSON.stringify({ ...line, type }),
       topic: `tmdb_import_${type}`,
       headers: { 'Content-Type': 'application/json' },
-    }))
+    })),
   )
 
   return new Response('OK')

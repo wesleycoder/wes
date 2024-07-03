@@ -1,0 +1,32 @@
+---
+import { db, linkTable } from '@wes/db'
+import type { GetStaticPaths } from 'astro'
+import { notFound } from 'astro:i18n'
+import { eq, sql } from 'drizzle-orm'
+
+export const getStaticPaths = (async () => {
+  const links = await db.query.linkTable.findMany()
+  return links.map((link) => ({ params: { linkId: link.id } }))
+}) satisfies GetStaticPaths
+
+const { linkId } = Astro.params
+
+if (!linkId) return notFound()
+
+const link = await db.query.linkTable.findFirst({ where: eq(linkTable.id, linkId) })
+
+if (!link) {
+  return notFound()
+}
+
+const linkUrl = link.url
+
+await db
+  .update(linkTable)
+  .set({ views: sql`${linkTable.views} + 1` })
+  .where(eq(linkTable.id, linkId))
+
+const response = Astro.redirect(linkUrl, 301)
+response.headers.set('Cache-Control', 'no-store,no-cache,must-revalidate,max-age=0')
+return response
+---
