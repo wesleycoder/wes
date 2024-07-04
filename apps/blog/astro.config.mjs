@@ -1,7 +1,9 @@
+import db from '@astrojs/db'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel/serverless'
+import vitals from '@astrojs/web-vitals'
 import env from '@wes/env'
 import compressor from 'astro-compressor'
 import { defineConfig } from 'astro/config'
@@ -18,7 +20,7 @@ export default defineConfig({
     defaultLocale: 'en',
     locales: ['en', 'pt-br'],
   },
-  integrations: [mdx(), sitemap(), tailwind(), env.isProd && compressor()],
+  integrations: [db(), vitals(), mdx(), sitemap(), tailwind(), env.isProd && compressor()],
   adapter: vercel(),
   vite: { envDir: workspace },
   experimental: {

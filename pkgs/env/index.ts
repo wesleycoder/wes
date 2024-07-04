@@ -20,6 +20,7 @@ const envSchema = z.object({
   TMDB_FILES_URL: z.string(),
   QSTASH_TOKEN: z.string().optional().default(''),
   VERCEL_URL: z.string().optional().default('http://localhost:3000'),
+  ASTRO_DATABASE_FILE: z.string().optional(),
 })
 
 export type Env = z.infer<typeof envSchema>

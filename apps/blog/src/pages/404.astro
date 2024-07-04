@@ -1,0 +1,21 @@
+---
+const path = Astro.url.searchParams.get('path')
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href={path}>
+    <title>Not found: {path}</title>
+  </head>
+  <body class="dark">
+  <main class="flex flex-col items-center justify-center min-h-screen text-black bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <h1>Not found</h1>
+    The page you are looking for does not exist.
+    Try <a href="/">going back to the homepage</a>.
+  </main>
+</body>
+</html>

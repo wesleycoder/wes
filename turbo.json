@@ -10,7 +10,9 @@
     "TMDB_ACCESS_TOKEN",
     "TMDB_API_URL",
     "TMDB_FILES_URL",
-    "VERCEL_URL"
+    "VERCEL_URL",
+    "ASTRO_DATABASE_FILE",
+    "ASTRO_STUDIO_APP_TOKEN"
   ],
   "tasks": {
     "build": {
