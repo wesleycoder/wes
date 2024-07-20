@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss'
 import { db, linkTable } from '@wes/db'
 import { getCollection } from 'astro:content'
+import { isValid } from 'date-fns'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 
 export async function GET(context) {
@@ -12,7 +13,10 @@ export async function GET(context) {
       .filter((p) => !!p.data.publishedAt || !!p.data.updatedAt)
       .map((post) => ({
         ...post.data,
-        pubDate: post.data.publishedAt.toUTCString() ?? post.data.updatedAt.toUTCString() ?? new Date().toUTCString(),
+        pubDate:
+          isValid(post.data.publishedAt) || isValid(post.data.updatedAt)
+            ? post.data.publishedAt.toUTCString() ?? post.data.updatedAt.toUTCString()
+            : new Date().toUTCString(),
         link: `/blog/${post.slug}`,
       })),
   )
@@ -21,7 +25,7 @@ export async function GET(context) {
   items = items.concat(
     links.map((link) => ({
       ...link,
-      pubDate: link.createdAt.toUTCString(),
+      pubDate: isValid(link.createdAt) ? link.createdAt.toUTCString() : new Date().toUTCString(),
       link: `/${link.id}`,
     })),
   )

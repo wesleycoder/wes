@@ -16,5 +16,6 @@ export const db = drizzle(client, {
   },
 })
 
+export * as dz from 'drizzle-orm'
 export * from './schema/import'
 export * from './schema/link'

@@ -1,7 +1,6 @@
 ---
-import { db, linkTable } from '@wes/db'
+import { db, dz, linkTable } from '@wes/db'
 import type { GetStaticPaths } from 'astro'
-import { eq, sql } from 'drizzle-orm'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,18 +13,18 @@ const { linkId } = Astro.params
 
 if (!linkId) return Astro.redirect('/404', 301)
 
-const link = await db.query.linkTable.findFirst({ where: eq(linkTable.id, linkId) })
+const links = await db.select().from(linkTable).where(dz.eq(linkTable.id, linkId)).limit(1)
 
-if (!link) {
+if (!links.length) {
   return notFound()
 }
 
-const linkUrl = link.url
+const linkUrl = links[0].url
 
 await db
   .update(linkTable)
-  .set({ views: sql`${linkTable.views} + 1` })
-  .where(eq(linkTable.id, linkId))
+  .set({ views: dz.sql`${linkTable.views} + 1` })
+  .where(dz.eq(linkTable.id, linkId))
 
 const response = Astro.redirect(linkUrl, 301)
 response.headers.set('Cache-Control', 'no-store,no-cache,must-revalidate,max-age=0')
