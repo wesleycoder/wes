@@ -9,5 +9,7 @@ export const GET: APIRoute = async ({ params }) => {
     return new Response(`Invalid type, should be one of: \n${importTypes.join('\n')}`, { status: 400 })
   }
 
-  return await processImport(data)
+  await processImport(data)
+
+  return new Response('OK')
 }

@@ -57,10 +57,10 @@ export const updateImports = async (type: ImportType) => {
     })),
   )
 
-  return new Response('OK')
+  return true
 }
 
 export const processImport = async (item: ImportQueueItem) => {
   const { id, type, ...rest } = item
-  return new Response('OK')
+  return true
 }

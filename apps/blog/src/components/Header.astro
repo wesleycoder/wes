@@ -1,11 +1,11 @@
 ---
-import HeaderLink from './HeaderLink.astro'
 import { SITE_TITLE } from '../consts'
+import HeaderLink from './HeaderLink.astro'
 import SocialLinks from './SocialLinks.astro'
 ---
 
-<header class="sticky top-0 bg-black/50 backdrop-blur-lg">
-  <nav class="container mx-auto flex w-full items-center justify-between px-2 py-2">
+<header class="sticky top-0 bg-[#002400]/30 backdrop-blur-2xl border-b border-[#004200]/20">
+  <nav class="container mx-auto flex w-full items-center justify-between px-4 py-4">
     <div class="flex gap-4">
       <HeaderLink href="/" class="font-drama" aria-label="Home">
         <span class="sr-only">Go to Home</span>

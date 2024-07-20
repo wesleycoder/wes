@@ -3,6 +3,8 @@ import { db, linkTable } from '@wes/db'
 import type { GetStaticPaths } from 'astro'
 import { eq, sql } from 'drizzle-orm'
 
+export const dynamic = 'force-dynamic'
+
 export const getStaticPaths = (async () => {
   const links = await db.query.linkTable.findMany()
   return links.map((link) => ({ params: { linkId: link.id } }))

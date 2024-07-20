@@ -9,10 +9,10 @@ export async function GET(context) {
   const posts = await getCollection('blog')
   items = items.concat(
     posts
-      .filter((p) => !!p.data.publishedAt)
+      .filter((p) => !!p.data.publishedAt || !!p.data.updatedAt)
       .map((post) => ({
         ...post.data,
-        pubDate: post.data.publishedAt.toUTCString(),
+        pubDate: post.data.publishedAt.toUTCString() ?? post.data.updatedAt.toUTCString() ?? new Date().toUTCString(),
         link: `/blog/${post.slug}`,
       })),
   )

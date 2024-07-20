@@ -11,8 +11,13 @@ const paramsSchema = z.object({
 export const GET: APIRoute = async ({ params }) => {
   const { success, data } = paramsSchema.safeParse(params)
   if (!success) {
-    return new Response(`Invalid import type, should be one of: \n${importTypes.join('\n')}`, { status: 400 })
+    return new Response(
+      JSON.stringify({ error: `Invalid import type, should be one of: \n${importTypes.join('\n')}` }),
+      { status: 400 },
+    )
   }
 
-  return await updateImports(data.type)
+  await updateImports(data.type)
+
+  return new Response('OK')
 }

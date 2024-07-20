@@ -7,7 +7,7 @@ export const linkTable = sqliteTable('link', {
   id: text('id')
     .primaryKey()
     .$default(() => nanoid(10)),
-  url: text('url').notNull().unique(),
+  url: text('url').notNull(),
   views: integer('views').notNull().default(sql`(0)`),
   createdAt: date('created_at')
     .notNull()
