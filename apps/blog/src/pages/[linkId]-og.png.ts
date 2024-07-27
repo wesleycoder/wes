@@ -4,6 +4,7 @@ import sharp from 'sharp'
 import { getLinkImage } from '../components/og/linkImage'
 
 export const dynamic = 'force-dynamic'
+export const prerender = false
 
 export const getStaticPaths = (async () => {
   const links = await db.query.linkTable.findMany()

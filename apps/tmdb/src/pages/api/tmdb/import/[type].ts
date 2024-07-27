@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro'
 import { z } from 'zod'
 
 export const dynamic = 'force-dynamic'
+export const prerender = false
 
 const paramsSchema = z.object({
   type: z.enum(importTypes),
