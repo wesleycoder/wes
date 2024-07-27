@@ -17,7 +17,7 @@ Here's a list of things that need to be done or are being worked on.
 - [ ] (blog): "Zé Delivery" post
 - [ ] (blog): "New job at Whaticket" post
 - [ ] (tmdb): CLI entrypoint
-- [ ] (links): put link shortener in a separate package with a home page
+- [ ] (links): put link shortener in a separate app with a home page
 - [ ] (projects): add a project page to the blog
   - [ ] (links): add a link to the project page
   - [ ] (blog): write a post about the projects

@@ -1,35 +1,15 @@
 ---
+import DevFile from '../components/icons/DevFile.astro'
 import Soon from '../components/icons/Soon.astro'
 import Default from '../layouts/Default.astro'
 ---
 
 <Default>
   <main class="container flex flex-col items-center gap-16 mx-auto">
-    <h1 class="font-drama text-9xl">Wés<br />Guima</h1>
-    <ul>
-      <li>Software Engineer 
-        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-auto h-5 align-middle " width="24" height="24" viewBox="0 0 24 24">
-          <title>Software Engineer</title>
-          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke-dasharray="64" stroke-dashoffset="64" stroke-width="2" d="M13 3L19 9V21H5V3H13">
-              <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/>
-            </path>
-            <path stroke-dasharray="14" stroke-dashoffset="14" d="M12.5 3V8.5H19">
-              <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.2s" values="14;0"/>
-            </path>
-            <g stroke-dasharray="8" stroke-dashoffset="8" stroke-width="2">
-              <path d="M10 13L8 15L10 17">
-                <animate fill="freeze" attributeName="stroke-dashoffset" begin="1s" dur="0.2s" values="8;0"/>
-              </path>
-              <path d="M14 13L16 15L14 17">
-                <animate fill="freeze" attributeName="stroke-dashoffset" begin="1.2s" dur="0.2s" values="8;0"/>
-              </path>
-            </g>
-          </g>
-        </svg>
-      </li>
-      <li>Brazilian <img src="/flag-br.gif" alt="Brazil flag" class="inline-block w-auto h-5 align-middle" />
-      </li>
+    <h1 class="text-6xl font-drama sm:text-9xl">Wés<br />Guima</h1>
+    <ul class="px-8">
+      <li>Software Engineer <DevFile /></li>
+      <li>Brazilian 🇧🇷</li>
       <li>In love with the web 🌐</li>
       <li>Currently in São Paulo 📍</li>
       <li>Wishing to move to Berlin 🇩🇪 🛩️ <Soon />

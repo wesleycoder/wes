@@ -12,7 +12,7 @@
   },
   "formatter": {
     "indentStyle": "space",
-    "lineWidth": 120,
+    "lineWidth": 100,
     "ignore": [
       "node_modules",
       "dist",
@@ -38,7 +38,7 @@
   },
   "javascript": {
     "formatter": {
-      "lineWidth": 120,
+      "lineWidth": 100,
       "semicolons": "asNeeded",
       "quoteStyle": "single"
     }
