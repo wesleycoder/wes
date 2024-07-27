@@ -1,21 +1,16 @@
 import { db, dz, linkTable } from '@wes/db'
-import type { APIRoute, GetStaticPaths } from 'astro'
+import type { APIRoute } from 'astro'
 import sharp from 'sharp'
 import { getLinkImage } from '../components/og/linkImage'
 
 export const dynamic = 'force-dynamic'
 export const prerender = false
 
-export const getStaticPaths = (async () => {
-  const links = await db.query.linkTable.findMany()
-  return links.map((link) => ({ params: { linkId: link.id } }))
-}) satisfies GetStaticPaths
-
 export const GET: APIRoute<{ params: { linkId: string } }> = async ({ params, request }) => {
   const { linkId } = params
   const host = new URL(request.url).origin
 
-  if (!linkId) return new Response(`Invalid link: ${linkId}`, { status: 404 })
+  if (!linkId) return new Response('No link id provided', { status: 404 })
 
   const link = (
     await db

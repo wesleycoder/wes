@@ -1,11 +1,14 @@
+import env from '@wes/env'
 import fs from 'node:fs'
-import path from 'node:path'
 import satori, { type SatoriOptions } from 'satori'
+import aachenFontFile from './aachen.woff'
 import astroBgImage from './astro-bg.png'
 import meImg from './me.png'
 
-const AachenFontPath = path.resolve('./public/fonts/aachen.woff')
-const AachenFont = fs.readFileSync(AachenFontPath)
+const getAachenFont = async () =>
+  env.isDev
+    ? fs.readFileSync(`./${aachenFontFile}`)
+    : await fetch(`https://guima.dev${aachenFontFile}`).then((res) => res.arrayBuffer())
 
 const defaultOptions = {
   width: 1200,
@@ -13,7 +16,7 @@ const defaultOptions = {
   fonts: [
     {
       name: 'Aachen',
-      data: AachenFont,
+      data: await getAachenFont(),
       style: 'normal',
     },
   ],

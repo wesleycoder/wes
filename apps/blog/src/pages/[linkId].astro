@@ -5,13 +5,10 @@ import type { GetStaticPaths } from 'astro'
 interface Props {
   title: string
   description: string
-  ogImage: string
 }
 
-const { title, description, ogImage } = Astro.props as Props
-const permalink = new URL(Astro.url.pathname, Astro.site).href
-const ogImageURL = new URL(ogImage, Astro.site).href
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const { linkId } = Astro.params
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href
 
 export const dynamic = 'force-dynamic'
 export const prerender = false
@@ -21,26 +18,19 @@ export const getStaticPaths = (async () => {
   return links.map((link) => ({ params: { linkId: link.id } }))
 }) satisfies GetStaticPaths
 
-const { linkId } = Astro.params
-
 if (!linkId) return Astro.redirect('/404', 307)
 
 const links = await db.select().from(linkTable).where(dz.eq(linkTable.id, linkId)).limit(1)
 
 if (!links.length) {
-  return notFound()
+  return Astro.redirect('/404', 307)
 }
-
-const linkUrl = links[0].url
+const { title, description, url: linkUrl } = links[0]
 
 await db
   .update(linkTable)
   .set({ views: dz.sql`${linkTable.views} + 1` })
   .where(dz.eq(linkTable.id, linkId))
-
-const response = Astro.redirect(linkUrl, 307)
-response.headers.set('Cache-Control', 'no-store,no-cache,must-revalidate,max-age=0')
-return response
 ---
 
 <head>
@@ -57,21 +47,23 @@ return response
   <link rel="canonical" href={canonicalURL} />
 
   <!-- Primary Meta Tags -->
-  <title>{title}</title>
-  <meta name="title" content={title} />
-  <meta name="description" content={description} />
+  <title>{title ?? 'Wés Guima'}</title>
+  <meta name="title" content={title ?? 'Wés Guima'} />
+  <meta name="description" content={description ?? 'Web Developer'} />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={permalink} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title ?? 'Wés Guima'} />
+  <meta property="og:description" content={description ?? 'Web Developer'} />
+  <meta property="og:image" content={`/${linkId}-og.png`} />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={permalink} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={ogImageURL} />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title ?? 'Wés Guima'} />
+  <meta property="twitter:description" content={description ?? 'Web Developer'} />
+  <meta property="twitter:image" content={`/${linkId}-og.png`} />
+
+  <meta http-equiv="refresh" content={`0;url=${linkUrl}`} />
 </head>
